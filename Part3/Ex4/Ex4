@@ -1,0 +1,21 @@
+import urllib.request, urllib.parse, urllib.error
+import xml.etree.ElementTree as ET
+
+#url = 'http://py4e-data.dr-chuck.net/comments_42.xml'
+url = 'http://py4e-data.dr-chuck.net/comments_24165.xml'
+
+
+print('Retrieving', url)
+uh = urllib.request.urlopen(url)
+data = uh.read()
+print('Retrieved', len(data), 'characters')
+tree = ET.fromstring(data)
+
+counts = tree.findall('comments/comment')
+print('Len: ', len(counts))
+
+total = 0
+for l in counts:
+        total = total + int(l.find('count').text)
+
+print(total)
